@@ -1,0 +1,21 @@
+Collection Name: twitter_feed
+
+Fields yang harus ada:
+* feed_id_i: String
+* published_date_dt: Date
+* link_s: String
+* content_t: Text
+* author_name_s: String
+* author_link_s: String
+* author_avatar_s: String
+* author_username_s: String
+* location_s: String
+* coord_lat_f: Float
+* coord_lon_f: Float
+* following_l: Long
+* followers_l: Long
+* language_s: String
+* num_replies_i: Integer
+* num_rts: Integer
+* published_ts_l: long
+* status_type_i: Integer

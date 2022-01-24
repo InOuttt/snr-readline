@@ -1,0 +1,18 @@
+feed_id : id
+published_date : postedTime
+link : link
+content : body
+author_name : actor.displayName 
+author_link : actor.link
+author_avatar: actor.image
+author_username: actor.preferredUsername
+location: actor.location.displayName
+coord_lat: ?
+coor_lon: ?
+following: actor.friendsCount
+followers: actor.followersCount
+language: twitter_lang
+num_replies: ?
+num_rts:retweet_count
+published_ts: ?
+status_type: ?

@@ -1,0 +1,65 @@
+version: "3.9"
+services:
+  be:
+    build:
+      context: .
+    ports:
+      - 8080:8080
+    volumes:
+      - .:/golang-docker
+    depends_on:
+      - db
+    environment:
+      - 'DB_PORT=3306'
+      - 'DB_HOST=database'
+    networks:
+      - test-db
+
+  db:
+    image: mysql/mysql-server:8.0.26-1.2.4-server
+    restart: always
+    user: root
+    volumes:
+      - db-data:/var/lib/mysql
+      - ./db:/docker-entrypoint-initdb.d
+    environment:
+        MYSQL_DATABASE: snr
+        MYSQL_ROOT_PASSWORD: root
+        MYSQL_USER: testuser
+        MYSQL_PASSWORD: testpassword
+    ports:
+     - "3306:3306"
+    expose:
+      - 3306
+      - 33060
+    networks:
+      - test-db
+  
+  initializer:
+    image: alpine
+    container_name: solr-initializer
+    restart: "no"
+    entrypoint: |
+      /bin/sh -c "chown 8983:8983 /solr"
+    volumes:
+      - .solr-data:/solr
+  solr:
+    image: solr:8.5.2
+    ports:
+    - "8983:8983"
+    volumes:
+      - solr-data:/var/solr/data
+    networks:
+      - test-db
+    command:
+      #- bash -c "chown -R 8983:8983 /var/solr && runuser -u solr -- solr-precreate default-core "
+      - solr-precreate
+      - jcg_example_core
+
+volumes:
+  db-data:
+  solr-data:
+
+
+networks:
+  test-db:
