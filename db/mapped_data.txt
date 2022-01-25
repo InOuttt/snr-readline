@@ -15,4 +15,4 @@ language: twitter_lang
 num_replies: ?
 num_rts:retweet_count
 published_ts: ?
-status_type: ?
+status_type: {conditional}
